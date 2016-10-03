@@ -112,7 +112,33 @@ namespace client
                
             }
 
-           //blStatus.Text = mb.modbusStatus;
+            //Create array to accept read values:
+            short[] values = new short[Convert.ToInt32("1")];
+            ushort pollStart;
+            ushort pollLength;
+
+           
+                pollStart = 0;
+           
+                pollLength = 1;
+
+            //Read registers and display data in desired format:
+            try
+            {
+                while (!mb.SendFc3(Convert.ToByte("1"), pollStart, pollLength, ref values)) ;
+            }
+            catch (Exception err)
+            {
+               // DoGUIStatus("Error in modbus read: " + err.Message);
+            }
+            mb.Close();
+
+            //blStatus.Text = mb.modbusStatus;
+        }
+
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            Scan1();
         }
     }
  }

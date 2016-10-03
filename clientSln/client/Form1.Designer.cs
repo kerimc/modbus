@@ -104,6 +104,7 @@
             this.btnScan.TabIndex = 3;
             this.btnScan.Text = "Scan";
             this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // lstParity
             // 
