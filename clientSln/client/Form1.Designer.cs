@@ -29,17 +29,21 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lstStopBits = new System.Windows.Forms.ComboBox();
+            this.lstDataBits = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lstParity = new System.Windows.Forms.ComboBox();
             this.lstBaudrate = new System.Windows.Forms.ComboBox();
             this.lstPorts = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnScan = new System.Windows.Forms.Button();
-            this.lstParity = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lstDataBits = new System.Windows.Forms.ComboBox();
-            this.lstStopBits = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.txtSampleRate = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +65,57 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PC Port Info";
+            // 
+            // lstStopBits
+            // 
+            this.lstStopBits.FormattingEnabled = true;
+            this.lstStopBits.Location = new System.Drawing.Point(90, 128);
+            this.lstStopBits.Name = "lstStopBits";
+            this.lstStopBits.Size = new System.Drawing.Size(82, 21);
+            this.lstStopBits.TabIndex = 10;
+            // 
+            // lstDataBits
+            // 
+            this.lstDataBits.FormattingEnabled = true;
+            this.lstDataBits.Location = new System.Drawing.Point(90, 101);
+            this.lstDataBits.Name = "lstDataBits";
+            this.lstDataBits.Size = new System.Drawing.Size(82, 21);
+            this.lstDataBits.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 135);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Stop bits";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 101);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Data bits";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 73);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Parity:";
+            // 
+            // lstParity
+            // 
+            this.lstParity.FormattingEnabled = true;
+            this.lstParity.Location = new System.Drawing.Point(90, 70);
+            this.lstParity.Name = "lstParity";
+            this.lstParity.Size = new System.Drawing.Size(82, 21);
+            this.lstParity.TabIndex = 5;
             // 
             // lstBaudrate
             // 
@@ -96,79 +151,65 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Port:";
             // 
-            // btnScan
+            // textBox1
             // 
-            this.btnScan.Location = new System.Drawing.Point(6, 229);
-            this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(178, 37);
-            this.btnScan.TabIndex = 3;
-            this.btnScan.Text = "Scan";
-            this.btnScan.UseVisualStyleBackColor = true;
-            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
+            this.textBox1.Location = new System.Drawing.Point(328, 96);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 4;
             // 
-            // lstParity
+            // statusStrip1
             // 
-            this.lstParity.FormattingEnabled = true;
-            this.lstParity.Location = new System.Drawing.Point(90, 70);
-            this.lstParity.Name = "lstParity";
-            this.lstParity.Size = new System.Drawing.Size(82, 21);
-            this.lstParity.TabIndex = 5;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 551);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1027, 22);
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // label4
+            // btnStart
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 73);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Parity:";
+            this.btnStart.Location = new System.Drawing.Point(21, 232);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 6;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click_1);
             // 
-            // label3
+            // btnStop
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 101);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Data bits";
+            this.btnStop.Location = new System.Drawing.Point(115, 232);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.TabIndex = 7;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click_1);
             // 
-            // label5
+            // txtSampleRate
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 135);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Stop bits";
-            // 
-            // lstDataBits
-            // 
-            this.lstDataBits.FormattingEnabled = true;
-            this.lstDataBits.Location = new System.Drawing.Point(90, 101);
-            this.lstDataBits.Name = "lstDataBits";
-            this.lstDataBits.Size = new System.Drawing.Size(82, 21);
-            this.lstDataBits.TabIndex = 9;
-            // 
-            // lstStopBits
-            // 
-            this.lstStopBits.FormattingEnabled = true;
-            this.lstStopBits.Location = new System.Drawing.Point(90, 128);
-            this.lstStopBits.Name = "lstStopBits";
-            this.lstStopBits.Size = new System.Drawing.Size(82, 21);
-            this.lstStopBits.TabIndex = 10;
+            this.txtSampleRate.Location = new System.Drawing.Point(294, 239);
+            this.txtSampleRate.Name = "txtSampleRate";
+            this.txtSampleRate.Size = new System.Drawing.Size(100, 20);
+            this.txtSampleRate.TabIndex = 8;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1027, 573);
-            this.Controls.Add(this.btnScan);
+            this.Controls.Add(this.txtSampleRate);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -178,13 +219,17 @@
         private System.Windows.Forms.ComboBox lstPorts;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.ComboBox lstParity;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox lstStopBits;
         private System.Windows.Forms.ComboBox lstDataBits;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.TextBox txtSampleRate;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Timers;
 
 namespace client
 {
@@ -16,16 +17,134 @@ namespace client
         modbus mb = new modbus();
         SerialPort sp = new SerialPort();
         System.Timers.Timer timer = new System.Timers.Timer();
-        string dataType;
+        as410 ucModule = new as410();
         bool isPolling = false;
         int pollCount;
+        #region GUI Delegate Declarations
+        public delegate void GUIDelegate(string paramString);
+        public delegate void GUIClear();
+        public delegate void GUIStatus(string paramString);
+        #endregion
 
         public Form1()
         {
             InitializeComponent();
             LoadListboxes();
+            timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
         }
 
+        #region Delegate Functions
+        public void DoGUIClear()
+        {
+            if (this.InvokeRequired)
+            {
+                GUIClear delegateMethod = new GUIClear(this.DoGUIClear);
+                this.Invoke(delegateMethod);
+            }
+            else
+                this.textBox1.Clear();
+        }
+        public void DoGUIStatus(string paramString)
+        {
+            if (this.InvokeRequired)
+            {
+                GUIStatus delegateMethod = new GUIStatus(this.DoGUIStatus);
+                this.Invoke(delegateMethod, new object[] { paramString });
+            }
+            else
+                this.statusStrip1.Text = paramString;
+        }
+        public void DoGUIUpdate(string paramString)
+        {
+            if (this.InvokeRequired)
+            {
+                GUIDelegate delegateMethod = new GUIDelegate(this.DoGUIUpdate);
+                this.Invoke(delegateMethod, new object[] { paramString });
+            }
+            else
+               // this.lstRegisterValues.Items.Add(paramString);
+             this.textBox1.Text = paramString;
+        }
+        #endregion
+
+        #region Poll Function
+        private void PollFunction()
+        {
+            //Update GUI:
+            //DoGUIClear();
+            pollCount++;
+            DoGUIStatus("Poll count: " + pollCount.ToString());
+          
+
+            //Read registers and display data in desired format:
+            try
+            {
+               mb.SendFc3(1, 0, 50, ref ucModule.holdingRegisters);
+            }
+            catch (Exception err)
+            {
+                DoGUIStatus("Error in modbus read: " + err.Message);
+            }
+
+            ucModule.updateState();
+            DoGUIUpdate(ucModule.R_01.ToString());
+
+        }
+        #endregion
+
+        #region Start and Stop Procedures
+        private void StartPoll()
+        {
+            pollCount = 0;
+
+            //Open COM port using provided settings:
+            if (mb.Open(lstPorts.SelectedItem.ToString(), Convert.ToInt32(lstBaudrate.SelectedItem.ToString()),
+                8, Parity.None, StopBits.One))
+            {
+                //Disable double starts:
+                btnStart.Enabled = false;
+               
+
+                //Set polling flag:
+                isPolling = true;
+
+                //Start timer using provided values:
+                timer.AutoReset = true;
+                if (txtSampleRate.Text != "")
+                    timer.Interval = Convert.ToDouble(txtSampleRate.Text);
+                else
+                    timer.Interval = 1000;
+                timer.Start();
+            }
+
+           // lblStatus.Text = mb.modbusStatus;
+        }
+        private void StopPoll()
+        {
+            //Stop timer and close COM port:
+            isPolling = false;
+            timer.Stop();
+            mb.Close();
+
+            btnStart.Enabled = true;
+
+         //   lblStatus.Text = mb.modbusStatus;
+        }
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            StartPoll();
+        }
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            StopPoll();
+        }
+        #endregion
+
+
+        void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            PollFunction();
+        }
         private void LoadListboxes()
         {
             //Three to load - ports, baudrates, datetype.  Also set default textbox values:
@@ -101,10 +220,10 @@ namespace client
                 Convert.ToInt32(lstDataBits.SelectedItem.ToString()),
                 (Parity)Enum.Parse(typeof(Parity), lstParity.SelectedItem.ToString()),
                 (StopBits)Enum.Parse(typeof(StopBits), lstStopBits.SelectedItem.ToString())));
-
+            
             {
                 //Disable double starts:
-                btnScan.Enabled = false;
+               // btnScan.Enabled = false;
                
                 //Set polling flag:
                 isPolling = true;
@@ -113,32 +232,37 @@ namespace client
             }
 
             //Create array to accept read values:
-            short[] values = new short[Convert.ToInt32("1")];
-            ushort pollStart;
-            ushort pollLength;
+            as410 ucModule = new as410();
+
 
            
-                pollStart = 0;
-           
-                pollLength = 1;
-
+             
             //Read registers and display data in desired format:
             try
             {
-                while (!mb.SendFc3(Convert.ToByte("1"), pollStart, pollLength, ref values)) ;
+                 mb.SendFc3(Convert.ToByte("1"), 1, 50, ref ucModule.holdingRegisters) ;
             }
             catch (Exception err)
             {
                // DoGUIStatus("Error in modbus read: " + err.Message);
             }
             mb.Close();
-
+            ucModule.updateState();
+            DoGUIUpdate(ucModule.R_01.ToString());
+            //Set polling flag:
+            isPolling = false;
+        //    btnScan.Enabled = true;
             //blStatus.Text = mb.modbusStatus;
         }
 
-        private void btnScan_Click(object sender, EventArgs e)
+        private void btnStart_Click_1(object sender, EventArgs e)
         {
-            Scan1();
+            StartPoll();
+        }
+
+        private void btnStop_Click_1(object sender, EventArgs e)
+        {
+            StopPoll();
         }
     }
  }
