@@ -62,8 +62,9 @@ namespace client
                 this.Invoke(delegateMethod, new object[] { paramString });
             }
             else
-               // this.lstRegisterValues.Items.Add(paramString);
-             this.textBox1.Text = paramString;
+               
+               if (!this.textBox1.Focused)
+                this.textBox1.Text = paramString;
         }
         #endregion
 
@@ -92,6 +93,37 @@ namespace client
         }
         #endregion
 
+        private void IdentifyModule()
+        {
+            //Read 3 registers
+            short[] moduleID = new short[3];
+            try
+            {
+                mb.SendFc3(1, 0, 3, ref moduleID);
+            }
+
+            catch (Exception err)
+            {
+                DoGUIStatus("Error in modbus read: " + err.Message);
+            }
+
+            switch (moduleID[0])
+            {
+                case 0:
+                    tabControl1.SelectedIndex = 0;
+                    tabControl1.Controls.Remove(this.tabPage2);
+                    tabControl1.Controls.Remove(this.tabPage3);
+
+                    break;
+                case 1:
+                    tabControl1.SelectedIndex = 1;
+                    tabControl1.Controls.Remove(this.tabPage1);
+                    tabControl1.Controls.Remove(this.tabPage3);
+                    break;
+            }
+        
+        }
+
         #region Start and Stop Procedures
         private void StartPoll()
         {
@@ -101,6 +133,7 @@ namespace client
             if (mb.Open(lstPorts.SelectedItem.ToString(), Convert.ToInt32(lstBaudrate.SelectedItem.ToString()),
                 8, Parity.None, StopBits.One))
             {
+                IdentifyModule();
                 //Disable double starts:
                 btnStart.Enabled = false;
                
@@ -166,7 +199,7 @@ namespace client
                 lstBaudrate.Items.Add(baudrate);
             }
 
-            lstBaudrate.SelectedIndex = 1;
+            lstBaudrate.SelectedIndex = 5;
 
             //3 Parity
             Parity[] parities = {0, (Parity)1, (Parity)2, (Parity)3 };
@@ -175,7 +208,7 @@ namespace client
             {
                 lstParity.Items.Add(parityMode);
             }
-            lstParity.SelectedIndex = 2;
+            lstParity.SelectedIndex = 0;
             //4 DataBits
             int[] dataBits = { 7,8};
 
