@@ -62,9 +62,65 @@ namespace client
                 this.Invoke(delegateMethod, new object[] { paramString });
             }
             else
-               
-               if (!this.textBox1.Focused)
-                this.textBox1.Text = paramString;
+            {
+                if (!this.textBox1.Focused)
+                    this.textBox1.Text = paramString;
+                this.pictureBox1.BackColor = Color.GhostWhite;
+                this.pictureBox2.BackColor = Color.GhostWhite;
+                this.pictureBox3.BackColor = Color.GhostWhite;
+                this.pictureBox4.BackColor = Color.GhostWhite;
+                this.pictureBox5.BackColor = Color.GhostWhite;
+                this.pictureBox6.BackColor = Color.GhostWhite;
+                this.pictureBox7.BackColor = Color.GhostWhite;
+                this.pictureBox8.BackColor = Color.GhostWhite;
+
+
+                this.pictureBoxDigitalOut1.BackColor = Color.GhostWhite;
+                this.pictureBoxDigitalOut2.BackColor = Color.GhostWhite;
+                this.pictureBoxDigitalOut3.BackColor = Color.GhostWhite;
+                this.pictureBoxDigitalOut4.BackColor = Color.GhostWhite;
+                this.pictureBoxDigitalOut5.BackColor = Color.GhostWhite;
+                this.pictureBoxDigitalOut6.BackColor = Color.GhostWhite;
+                this.pictureBoxDigitalOut7.BackColor = Color.GhostWhite;
+                this.pictureBoxDigitalOut8.BackColor = Color.GhostWhite;
+
+                if (ucModule.digitalInput[0] ==1 )
+                    this.pictureBox1.BackColor = Color.Green;
+                if (ucModule.digitalInput[1] == 1)
+                    this.pictureBox2.BackColor = Color.Green;
+                if (ucModule.digitalInput[2] == 1)
+                    this.pictureBox3.BackColor = Color.Green;
+                if (ucModule.digitalInput[3] == 1)
+                    this.pictureBox4.BackColor = Color.Green;
+                if (ucModule.digitalInput[4] == 1)
+                    this.pictureBox5.BackColor = Color.Green;
+                if (ucModule.digitalInput[5] == 1)
+                    this.pictureBox6.BackColor = Color.Green;
+                if (ucModule.digitalInput[6] == 1)
+                    this.pictureBox7.BackColor = Color.Green;
+                if (ucModule.digitalInput[7] == 1)
+                    this.pictureBox8.BackColor = Color.Green;
+
+
+                if (ucModule.digitalOutput[0] == 1)
+                    this.pictureBoxDigitalOut1.BackColor = Color.Green;
+                if (ucModule.digitalOutput[1] == 1)
+                    this.pictureBoxDigitalOut2.BackColor = Color.Green;
+                if (ucModule.digitalOutput[2] == 1)
+                    this.pictureBoxDigitalOut3.BackColor = Color.Green;
+                if (ucModule.digitalOutput[3] == 1)
+                    this.pictureBoxDigitalOut4.BackColor = Color.Green;
+                if (ucModule.digitalOutput[4] == 1)
+                    this.pictureBoxDigitalOut5.BackColor = Color.Green;
+                if (ucModule.digitalOutput[5] == 1)
+                    this.pictureBoxDigitalOut6.BackColor = Color.Green;
+                if (ucModule.digitalOutput[6] == 1)
+                    this.pictureBoxDigitalOut7.BackColor = Color.Green;
+                if (ucModule.digitalOutput[7] == 1)
+                    this.pictureBoxDigitalOut8.BackColor = Color.Green;
+
+
+            }
         }
         #endregion
 
@@ -75,12 +131,12 @@ namespace client
             //DoGUIClear();
             pollCount++;
             DoGUIStatus("Poll count: " + pollCount.ToString());
-          
+
 
             //Read registers and display data in desired format:
             try
             {
-               mb.SendFc3(1, 0, 50, ref ucModule.holdingRegisters);
+                mb.SendFc3(1, 0, 50, ref ucModule.holdingRegisters);
             }
             catch (Exception err)
             {
@@ -117,11 +173,11 @@ namespace client
                     break;
                 case 1:
                     tabControl1.SelectedIndex = 1;
-                    tabControl1.Controls.Remove(this.tabPage1);
+                    tabControl1.Controls.Remove(this.AS410);
                     tabControl1.Controls.Remove(this.tabPage3);
                     break;
             }
-        
+
         }
 
         #region Start and Stop Procedures
@@ -136,7 +192,7 @@ namespace client
                 IdentifyModule();
                 //Disable double starts:
                 btnStart.Enabled = false;
-               
+
 
                 //Set polling flag:
                 isPolling = true;
@@ -150,7 +206,7 @@ namespace client
                 timer.Start();
             }
 
-           // lblStatus.Text = mb.modbusStatus;
+            // lblStatus.Text = mb.modbusStatus;
         }
         private void StopPoll()
         {
@@ -161,7 +217,7 @@ namespace client
 
             btnStart.Enabled = true;
 
-         //   lblStatus.Text = mb.modbusStatus;
+            //   lblStatus.Text = mb.modbusStatus;
         }
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -202,7 +258,7 @@ namespace client
             lstBaudrate.SelectedIndex = 5;
 
             //3 Parity
-            Parity[] parities = {0, (Parity)1, (Parity)2, (Parity)3 };
+            Parity[] parities = { 0, (Parity)1, (Parity)2, (Parity)3 };
 
             foreach (Parity parityMode in parities)
             {
@@ -210,15 +266,15 @@ namespace client
             }
             lstParity.SelectedIndex = 0;
             //4 DataBits
-            int[] dataBits = { 7,8};
+            int[] dataBits = { 7, 8 };
 
             foreach (int dataBit in dataBits)
             {
                 lstDataBits.Items.Add(dataBit);
             }
             lstDataBits.SelectedIndex = 1;
-           //4 Stop bits
-           StopBits[] stopBits = { 0, (StopBits)1, (StopBits)2, (StopBits)3 };
+            //4 Stop bits
+            StopBits[] stopBits = { 0, (StopBits)1, (StopBits)2, (StopBits)3 };
 
             foreach (int stopBit in stopBits)
             {
@@ -248,43 +304,43 @@ namespace client
         private void Scan1()
         {
             //Open COM port using provided settings:
-            if (mb.Open(lstPorts.SelectedItem.ToString(), 
+            if (mb.Open(lstPorts.SelectedItem.ToString(),
                 Convert.ToInt32(lstBaudrate.SelectedItem.ToString()),
                 Convert.ToInt32(lstDataBits.SelectedItem.ToString()),
                 (Parity)Enum.Parse(typeof(Parity), lstParity.SelectedItem.ToString()),
-                (StopBits)Enum.Parse(typeof(StopBits), lstStopBits.SelectedItem.ToString())));
-            
+                (StopBits)Enum.Parse(typeof(StopBits), lstStopBits.SelectedItem.ToString()))) ;
+
             {
                 //Disable double starts:
-               // btnScan.Enabled = false;
-               
+                // btnScan.Enabled = false;
+
                 //Set polling flag:
                 isPolling = true;
 
-               
+
             }
 
             //Create array to accept read values:
             as410 ucModule = new as410();
 
 
-           
-             
+
+
             //Read registers and display data in desired format:
             try
             {
-                 mb.SendFc3(Convert.ToByte("1"), 1, 50, ref ucModule.holdingRegisters) ;
+                mb.SendFc3(Convert.ToByte("1"), 1, 50, ref ucModule.holdingRegisters);
             }
             catch (Exception err)
             {
-               // DoGUIStatus("Error in modbus read: " + err.Message);
+                // DoGUIStatus("Error in modbus read: " + err.Message);
             }
             mb.Close();
             ucModule.updateState();
             DoGUIUpdate(ucModule.R_01.ToString());
             //Set polling flag:
             isPolling = false;
-        //    btnScan.Enabled = true;
+            //    btnScan.Enabled = true;
             //blStatus.Text = mb.modbusStatus;
         }
 
@@ -297,6 +353,7 @@ namespace client
         {
             StopPoll();
         }
+
     }
- }
+}
 
