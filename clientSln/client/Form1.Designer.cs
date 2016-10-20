@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lstStopBits = new System.Windows.Forms.ComboBox();
             this.lstDataBits = new System.Windows.Forms.ComboBox();
@@ -48,6 +47,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.AS410 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBoxDigitalOut1 = new System.Windows.Forms.PictureBox();
             this.pictureBoxDigitalOut2 = new System.Windows.Forms.PictureBox();
             this.pictureBoxDigitalOut3 = new System.Windows.Forms.PictureBox();
@@ -68,9 +68,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.as410BindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.as410BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.as410BindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.label7 = new System.Windows.Forms.Label();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.AS410.SuspendLayout();
@@ -92,9 +97,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.as410BindingSource2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.as410BindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.as410BindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -269,6 +271,15 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.checkBox8);
+            this.groupBox3.Controls.Add(this.checkBox7);
+            this.groupBox3.Controls.Add(this.checkBox6);
+            this.groupBox3.Controls.Add(this.checkBox5);
+            this.groupBox3.Controls.Add(this.checkBox4);
+            this.groupBox3.Controls.Add(this.checkBox3);
+            this.groupBox3.Controls.Add(this.checkBox2);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.checkBox1);
             this.groupBox3.Controls.Add(this.pictureBoxDigitalOut1);
             this.groupBox3.Controls.Add(this.pictureBoxDigitalOut2);
             this.groupBox3.Controls.Add(this.pictureBoxDigitalOut3);
@@ -279,10 +290,19 @@
             this.groupBox3.Controls.Add(this.pictureBoxDigitalOut8);
             this.groupBox3.Location = new System.Drawing.Point(28, 144);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(292, 104);
+            this.groupBox3.Size = new System.Drawing.Size(292, 115);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Digital Outputs";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 95);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // pictureBoxDigitalOut1
             // 
@@ -473,17 +493,77 @@
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // as410BindingSource2
+            // label7
             // 
-            this.as410BindingSource2.DataSource = typeof(client.as410);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 68);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(92, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Control Digital Out";
             // 
-            // as410BindingSource
+            // checkBox2
             // 
-            this.as410BindingSource.DataSource = typeof(client.as410);
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(38, 95);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(15, 14);
+            this.checkBox2.TabIndex = 11;
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // as410BindingSource1
+            // checkBox3
             // 
-            this.as410BindingSource1.DataSource = typeof(client.as410);
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(70, 95);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(15, 14);
+            this.checkBox3.TabIndex = 12;
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(102, 95);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(15, 14);
+            this.checkBox4.TabIndex = 13;
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(144, 95);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(15, 14);
+            this.checkBox5.TabIndex = 14;
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(176, 95);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(15, 14);
+            this.checkBox6.TabIndex = 15;
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(208, 95);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(15, 14);
+            this.checkBox7.TabIndex = 16;
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(240, 95);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(15, 14);
+            this.checkBox8.TabIndex = 17;
+            this.checkBox8.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -505,6 +585,7 @@
             this.AS410.ResumeLayout(false);
             this.AS410.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDigitalOut1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDigitalOut2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDigitalOut3)).EndInit();
@@ -522,9 +603,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.as410BindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.as410BindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.as410BindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -551,9 +629,6 @@
         private System.Windows.Forms.TabPage AS410;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.BindingSource as410BindingSource;
-        private System.Windows.Forms.BindingSource as410BindingSource2;
-        private System.Windows.Forms.BindingSource as410BindingSource1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -573,6 +648,15 @@
         private System.Windows.Forms.PictureBox pictureBoxDigitalOut6;
         private System.Windows.Forms.PictureBox pictureBoxDigitalOut7;
         private System.Windows.Forms.PictureBox pictureBoxDigitalOut8;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label7;
     }
 }
 
