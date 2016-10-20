@@ -28,6 +28,8 @@ namespace client
                          .ToArray(); // Convert IEnumerable from select to Array
             digitalInput = DiBits;
 
+            R_02 = holdingRegisters[1];
+
             string stringDO = Convert.ToString(R_02, 2); //Convert to binary in a string
             int[] DoBits = stringDO.PadLeft(8, '0') // Add 0's from left
                         .Select(c => int.Parse(c.ToString())) // convert each char to int
@@ -35,7 +37,7 @@ namespace client
             digitalOutput = DoBits;
 
 
-            R_02 = holdingRegisters[1];
+           
             R_03 = holdingRegisters[2];
         }
     }

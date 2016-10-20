@@ -230,6 +230,34 @@ namespace client
         #endregion
 
 
+        private void WriteDo()
+        {
+            int rejD = 0; 
+            if (checkBox1.Checked) rejD =  1;
+            if (checkBox2.Checked) rejD =  rejD + 2;
+            if (checkBox3.Checked) rejD = rejD + 4;
+            if (checkBox4.Checked) rejD = rejD + 8;
+            if (checkBox5.Checked) rejD = rejD + 16;
+            if (checkBox6.Checked) rejD = rejD + 32;
+            if (checkBox7.Checked) rejD = rejD + 64;
+
+            short[] valueToWrite = new short[1];
+            valueToWrite[0] = Convert.ToInt16(rejD);
+            try
+            {
+                mb.SendFc16(1,3,1, valueToWrite);
+            }
+            catch (Exception err)
+            {
+                DoGUIStatus("Error in modbus read: " + err.Message);
+            }
+
+
+
+
+
+
+        }
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             PollFunction();
@@ -354,6 +382,10 @@ namespace client
             StopPoll();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WriteDo();
+        }
     }
 }
 
