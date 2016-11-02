@@ -19,6 +19,7 @@ namespace client
         System.Timers.Timer timer = new System.Timers.Timer();
         as410 ucModule = new as410();
         bool isPolling = false;
+        byte moduleSlaveID = 1;
         int pollCount;
         #region GUI Delegate Declarations
         public delegate void GUIDelegate(string paramString);
@@ -125,7 +126,7 @@ namespace client
         #endregion
 
         #region Poll Function
-        private void PollFunction()
+        private void PollFunction(byte slaveID, ushort startAddr = 0, ushort numRegisters = 50)
         {
             //Update GUI:
             //DoGUIClear();
@@ -136,7 +137,7 @@ namespace client
             //Read registers and display data in desired format:
             try
             {
-                mb.SendFc3(1, 0, 50, ref ucModule.holdingRegisters);
+                mb.SendFc3(slaveID, startAddr, numRegisters, ref ucModule.holdingRegisters);
             }
             catch (Exception err)
             {
@@ -204,6 +205,11 @@ namespace client
                 else
                     timer.Interval = 1000;
                 timer.Start();
+
+                if (textBox_slave_id.Text != "")
+                    moduleSlaveID = Convert.ToByte(textBox_slave_id.Text);
+                else
+                    moduleSlaveID = 1;
             }
 
             // lblStatus.Text = mb.modbusStatus;
@@ -230,7 +236,7 @@ namespace client
         #endregion
 
 
-        private void WriteDo()
+        private void WriteDo(byte slaveId)
         {
             int rejD = 0; 
             if (checkBox1.Checked) rejD =  1;
@@ -245,7 +251,7 @@ namespace client
             valueToWrite[0] = Convert.ToInt16(rejD);
             try
             {
-                mb.SendFc16(1,3,1, valueToWrite);
+                mb.SendFc16(slaveId,2,1, valueToWrite);
             }
             catch (Exception err)
             {
@@ -260,7 +266,9 @@ namespace client
         }
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            PollFunction();
+            if (textBox_slave_id.Text != "")
+                moduleSlaveID = Convert.ToByte(textBox_slave_id.Text);
+            PollFunction(moduleSlaveID);
         }
         private void LoadListboxes()
         {
@@ -384,7 +392,7 @@ namespace client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            WriteDo();
+            WriteDo(moduleSlaveID);
         }
     }
 }
